@@ -1,0 +1,24 @@
+{
+  "name" : "alert/notificationbundle",
+  "description" : "alert bundle send e-mail after update soem entities",
+  "type" : "symfony-bundle",
+  "authors" : [{
+    "name" : "Zied Ben Hadj Amor",
+    "email" : "mr.bha.zied@gmail.com"
+  }],
+  "keywords" : [
+    "Entities, alert, notification, real time"
+  ],
+  "require" : {
+    "php" : ">=5.5.0",
+    "symfony/framework-bundle" : ">=2.8.0",
+    "twig/twig" : "*",
+    "doctrine/doctrine-bundle" : "*"
+  },
+  "autoload" : {
+    "psr-0" : {
+      "Alert\\NotificationBundle" : ""
+    }
+  },
+  "target-dir" : "BHAZ/NotificationBundle"
+}
