@@ -1,0 +1,3 @@
+alertnotification_homepage:
+    path:     /
+    defaults: { _controller: alertnotificationBundle:Default:index }

@@ -1,0 +1,4 @@
+services:
+#    alertnotification.example:
+#        class: alert\notificationBundle\Example
+#        arguments: ["@service_id", "plain_value", "%parameter%"]
