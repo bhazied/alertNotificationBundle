@@ -2,3 +2,21 @@ services:
 #    alertnotification.example:
 #        class: alert\notificationBundle\Example
 #        arguments: ["@service_id", "plain_value", "%parameter%"]
+
+parameters:
+    notification.event.alert_email_listner.class: Alert\NotificationBundle\Listener\AlertEmailListener
+    notification.event.alert_mailer.class: Alert\NotificationBundle\Listener\AlertMailer
+
+services:
+    notification.alert_mailer:
+        class: %notification.event.alert_mailer.class%
+        arguments: [@templating, @mailer, @router]
+        arguments: [@router]
+        calls:
+            - [setMailer, ["@mailer"]]
+            - [setTemplating, ["@templating"]]
+    notification.event.alert_email_listner:
+        class: %notification.event.alert_email_listner.class%
+        arguments: [@notification.alert_mailer]
+        tags:
+            - { name: doctrine.event_listener, event: postPersist, connection: default }
