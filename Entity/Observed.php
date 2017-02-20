@@ -9,7 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @ORM\Table(name="observed")
  * @ORM\Entity(repositoryClass="Alert\NotificationBundle\Repository\ObservedRepository")
- * @ORM\HasLifecycleCallbacks()
+ * @ORM\HasLifecycleCallbacks
  *
  */
 class Observed
@@ -50,7 +50,7 @@ class Observed
      * @ORM\Column(name="created_at", type="datetime")
      */
     private $createdAt;
-
+    
 
     /**
      * Get id

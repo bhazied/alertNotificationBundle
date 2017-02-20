@@ -1,6 +1,6 @@
 <?php
 
-namespace alert\notificationBundle\DependencyInjection;
+namespace Alert\NotificationBundle\DependencyInjection;
 
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\Config\FileLocator;
@@ -12,7 +12,7 @@ use Symfony\Component\DependencyInjection\Loader;
  *
  * @link http://symfony.com/doc/current/cookbook/bundles/extension.html
  */
-class alertnotificationExtension extends Extension
+class AlertNotificationExtension extends Extension
 {
     /**
      * {@inheritdoc}
@@ -22,6 +22,8 @@ class alertnotificationExtension extends Extension
         $configuration = new Configuration();
         $config = $this->processConfiguration($configuration, $configs);
 
+        $container->setParameter('alert_notification.entities', $config['entities']);
+        $container->setParameter('alert_notification.email_templates', $config['email_templates']);
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.yml');
     }

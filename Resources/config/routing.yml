@@ -1,3 +1,7 @@
 alertnotification_homepage:
     path:     /
     defaults: { _controller: AlertNotificationBundle:Default:index }
+
+alertnotification_upddate:
+    path: /{id}
+    defaults: { _controller: AlertNotificationBundle:Default:update }

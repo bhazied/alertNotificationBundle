@@ -15,6 +15,15 @@ class DefaultController extends Controller
         $em = $this->getDoctrine()->getManager();
         $em->persist($ob);
         $em->flush();
-        return $this->render('alertnotificationBundle:Default:index.html.twig');
+        return $this->render('AlertNotificationBundle:Default:index.html.twig');
+    }
+
+
+    public function updateAction(Observed $entity){
+       $entity->setTitle('title updated');
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($entity);
+        $em->flush();
+        return $this->render('AlertNotificationBundle:Default:index.html.twig');
     }
 }

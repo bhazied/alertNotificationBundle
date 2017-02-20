@@ -1,7 +1,8 @@
 <?php
 
-namespace Alert\NotificationBundle\Listener\AlertMailer;
+namespace Alert\NotificationBundle\Listener;
 
+use Symfony\Component\Config\Resource\ResourceInterface;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Translation\TranslatorInterface;
 use Symfony\Component\Templating\EngineInterface;
@@ -18,28 +19,17 @@ class AlertMailer
     private $mailer;
     private $templating;
     private $router;
-    //protected  $container;
     private  $from;
 
-    public function __construct(RouterInterface $router)
-        //function __construct(ContainerInterface $container)
+    public function __construct(EngineInterface $templating, \Swift_Mailer $mailer, RouterInterface $router)
     {
-        //$this->container = $_container;
-        //$this->mailer = $mailer;
-        //$this->twig = $twig;
-        $this->router = $router;
-        $this->from = 'contact@ubid.com';
-    }
-
-    public function setMailer(\Swift_Mailer $mailer){
         $this->mailer = $mailer;
-    }
-
-    public function setTemplating(\Symfony\Bundle\TwigBundle\TwigEngine $templating){
         $this->templating = $templating;
+        $this->router = $router;
+        $this->from = 'contact@continuousnet.com';
     }
 
-    protected function sendMail($to, $subject, $body){
+    /*protected function sendMail($to, $subject, $body){
         $message = \Swift_Message::newInstance();
         $message->setFrom($this->from)
             ->setTo($to)
@@ -47,12 +37,35 @@ class AlertMailer
             ->setBody($body)
             ->setContentType('text/html');
         $this->mailer->send($message);
+    }*/
 
+    protected function sendMail($to, $subject, $body)
+    {
+        /*
+         * $message = \Swift_Message::newInstance();
+        $message->setFrom($this->from)
+            ->setTo($to)
+            ->setSubject($subject)
+            ->setBody($body)
+            ->setContentType('text/html');
+        $this->mailer->send($message);
+        */
+        $message = new \Swift_Message( );
+        $message->setTo($to)
+            ->setFrom($this->from)
+            ->setBody($body)
+            ->setContentType('text/html');
+        $this->mailer->send($message);
+    }
+        public function executeSendEmail($template){
 
+            $body = $this->templating->render($template, array('text' => "new row added"));
+            //$body = "";
+        //$this->sendMail('mr.bha.zied@gmail.com', 'new row added', $body);
+            $this->sendMail('mr.bha.zied@gmail.com', 'new row added', $body);
     }
 
-
-    public function sendNewBidEmail(User $user, Bid $bid){
+    /*public function sendNewBidEmail(User $user, Bid $bid){
         $template = 'UbidElectricityBundle:EMAILS:bidShortListes.html.twig';
         $body = $this->templating->render($template, array('newBid' => $bid));
         $to = $user->getEmail();
@@ -91,5 +104,5 @@ class AlertMailer
         $subject = '[New Bid Added]';
         $this->sendMail($to, $subject, $body);
 
-    }
+    }*/
 }

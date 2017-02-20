@@ -1,6 +1,6 @@
 <?php
 
-namespace alert\notificationBundle\DependencyInjection;
+namespace Alert\NotificationBundle\DependencyInjection;
 
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
@@ -18,7 +18,23 @@ class Configuration implements ConfigurationInterface
     public function getConfigTreeBuilder()
     {
         $treeBuilder = new TreeBuilder();
-        $rootNode = $treeBuilder->root('alertnotification');
+        $rootNode = $treeBuilder->root('alert_notification');
+        $rootNode->
+            children()
+                ->arrayNode('entities')
+                ->prototype('scalar')
+                ->end()
+                ->isRequired()
+                ->cannotBeEmpty()
+         ->end();
+        $rootNode->
+        children()
+            ->arrayNode('email_templates')
+            ->prototype('scalar')
+            ->end()
+            ->isRequired()
+            ->cannotBeEmpty()
+            ->end();
 
         // Here you should define the parameters that are allowed to
         // configure your bundle. See the documentation linked above for

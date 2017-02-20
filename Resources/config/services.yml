@@ -6,17 +6,15 @@ services:
 parameters:
     notification.event.alert_email_listner.class: Alert\NotificationBundle\Listener\AlertEmailListener
     notification.event.alert_mailer.class: Alert\NotificationBundle\Listener\AlertMailer
+    notification.event.alert_email_subscriber.class: Alert\NotificationBundle\Listener\AlertEmailSubscriber
 
 services:
     notification.alert_mailer:
         class: %notification.event.alert_mailer.class%
         arguments: [@templating, @mailer, @router]
-        arguments: [@router]
-        calls:
-            - [setMailer, ["@mailer"]]
-            - [setTemplating, ["@templating"]]
+
     notification.event.alert_email_listner:
         class: %notification.event.alert_email_listner.class%
-        arguments: [@notification.alert_mailer]
+        arguments: [@notification.alert_mailer, @service_container]
         tags:
-            - { name: doctrine.event_listener, event: postPersist, connection: default }
+            - { name: doctrine.event_listener, event: postPersist, method: postPersist , priority: 100  }
